@@ -8,11 +8,21 @@ namespace OctodiffTest
 {
     class Program
     {
+        private static string deneme = "Hello World";
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            PipeTest().Wait();
+            if (args.Length >= 0)
+                Console.WriteLine(deneme);
+            TestConnector();
             Console.ReadLine();
+        }
+
+        public static void TestConnector()
+        {
+            using (var inputStream = new FileStream(@"C:\Temp\infile", FileMode.Open))
+            {
+                S3Connector.UploadStream(inputStream, "deneme", "object.gz").Wait();
+            }
         }
 
         public static async Task PipeTest()
@@ -36,7 +46,7 @@ namespace OctodiffTest
         {
             using (var outfile = new FileStream(@"C:\Temp\outfile", FileMode.Create))
             {
-                await file.CopyToAsync(outfile);
+                await file.CopyToAsync(outfile).ConfigureAwait(false);
             }
         }
     }

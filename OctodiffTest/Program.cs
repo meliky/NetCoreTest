@@ -11,9 +11,7 @@ namespace OctodiffTest
         private static string deneme = "Hello World";
         static void Main(string[] args)
         {
-            if (args.Length >= 0)
-                Console.WriteLine(deneme);
-            TestConnector();
+            Console.WriteLine(deneme);
             Console.ReadLine();
         }
 
